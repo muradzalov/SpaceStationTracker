@@ -5,15 +5,8 @@ import axios from 'axios'
 
 function App() {
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      getISSLocation()
-      // console.log('This will run after 3 second!')
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
-
   const [ISSCoordinates, setCoordinates] = useState({})
+
 
   const getISSLocation = async () => {
     try {
@@ -26,16 +19,23 @@ function App() {
     }
   }
 
-  // console.log('ISS coordinates in state: ', ISSCoordinates)
 
-  // useEffect(() => { getISSLocation() }, [])
+  useEffect(() => {
+    const timer = setInterval(() => {
+      getISSLocation()
+      // console.log('This will run after 3 second!')
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
 
   return (
-    <div>
-      The current coordinates of the ISS are:
+    <div className='app'>
+
 
       <div>
-        {Object.keys(ISSCoordinates).length ?
+        The current coordinates of the ISS are:
+          {Object.keys(ISSCoordinates).length ?
           <div>
             <h4>
               Latitude: {ISSCoordinates.latitude}
@@ -46,7 +46,10 @@ function App() {
           </div>
           : null
         }
-        <Map coordinates={ISSCoordinates}/>
+      </div>
+
+      <div className='map'>
+        <Map coordinates={ISSCoordinates} />
       </div>
 
     </div>
