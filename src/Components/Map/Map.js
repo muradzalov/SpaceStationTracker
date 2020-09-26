@@ -8,7 +8,7 @@ const Map = props => {
     
   const {coordinates} = props;
 
-  console.log('coordinates inside map component', coordinates)
+  console.log('ISS information: ', coordinates)
 
   const numericalLongitude = Number(coordinates.longitude)
   const numericalLatitude = Number(coordinates.latitude)

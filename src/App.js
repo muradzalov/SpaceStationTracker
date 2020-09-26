@@ -10,9 +10,21 @@ function App() {
 
   const getISSLocation = async () => {
     try {
-      const response = await axios.get('http://api.open-notify.org/iss-now.json')
-      // console.log('ISS coordinates: ', response.data.iss_position)
-      setCoordinates(response.data.iss_position)
+      // const responseOld = await axios.get('http://api.open-notify.org/iss-now.json')
+      // console.log('ISS coordinates OLD: ', responseOld.data.iss_position)
+      const response = await axios.get('https://api.wheretheiss.at/v1/satellites/25544')
+      const issInfo = { 
+        latitude: response.data.latitude,
+        longitude: response.data.longitude,
+        visibility: response.data.visibility,
+        altitude: response.data.altitude,
+        velocity: response.data.velocity
+      }
+      
+      // console.log('ISS Coordinates: ', response.data)
+      // console.log('ISS Info object', issInfo)
+
+      setCoordinates(issInfo)
     }
     catch (error) {
       console.log(error)
@@ -23,7 +35,6 @@ function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       getISSLocation()
-      // console.log('This will run after 3 second!')
     }, 3000);
     return () => clearInterval(timer);
   }, []);
