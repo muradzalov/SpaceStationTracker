@@ -1,11 +1,11 @@
 ### `Deployed Site`
-Deployed site available at https://weather-app-mz-2020.netlify.app/
+Deployed site available at https://master.d11vj5ny5dd1v.amplifyapp.com/
 
 ### `Description`
-GeoWeather is a web application I developed that fetches temperature, weather conditions, and city image based on a user's input. The frontend is built using modular React components and styled with CSS. I used React Hooks in this application to learn first-hand about the benefits of foregoing 'this' context and method binding. This application is deployed using Netlify.
+The International Space Station Tracker is a web application I developed for fun to plot the location of the ISS while in orbit onto a world map. This project is a work-in-progress, and I aim to also add a feature that allows users to pinpoint a coordinate set on the world map and receive a set of times that the ISS will be visible in the night sky for them. The frontend is built using modular React components with CSS styling, and this application is powered by a number of API such as React-Maps and OpenNotify. This application is deployed using AWS Amplify.
 
 ### `Technologies Used`
-React, React Hooks, HTML, CSS, JavaScript, Netlify, RESTful API, Particle.js
+React, React Maps, AWS, HTML, CSS, JavaScript, RESTful API
 
 ### `npm start`
 Runs the app in the development mode.<br />
