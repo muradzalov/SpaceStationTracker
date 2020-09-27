@@ -62,7 +62,9 @@ function App() {
       console.error(error);
     }
 
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
+      enableHighAccuracy: true
+    })
   }
 
   retrieveUserLocation()
