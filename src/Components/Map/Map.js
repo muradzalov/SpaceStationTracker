@@ -6,12 +6,12 @@ const geoUrl =
 
 const Map = props => {
     
-  const {coordinates} = props;
-
-  console.log('ISS information: ', coordinates)
+  const {coordinates, userCoordinates} = props;
 
   const numericalLongitude = Number(coordinates.longitude)
   const numericalLatitude = Number(coordinates.latitude)
+
+  // console.log('userCoordinates from props', userCoordinates)
 
   return (
     <div>
@@ -25,6 +25,9 @@ const Map = props => {
         {/* Longitude, Latitude */}
         {/* <Marker coordinates={[-74.006, 40.7128]}> */}
         <Marker coordinates={[numericalLongitude, numericalLatitude]}>
+          <circle r={8} fill="#F53" />
+        </Marker>
+        <Marker coordinates={[userCoordinates.userLongitude, userCoordinates.userLatitude]}>
           <circle r={8} fill="#F53" />
         </Marker>
       </ComposableMap>
