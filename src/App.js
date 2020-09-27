@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import Map from '../src/Components/Map/Map'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Map from "../src/Components/Map/Map";
+import axios from "axios";
 
 function App() {
 
@@ -25,13 +25,11 @@ function App() {
       // console.log('ISS Coordinates: ', response.data)
       // console.log('ISS Info object', issInfo)
 
-      setCoordinates(issInfo)
+      setCoordinates(issInfo);
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-      console.log(error)
-    }
-  }
-
+  };
 
   // const getUserLocation = async () => {
   //   try {
@@ -75,35 +73,26 @@ function App() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      getISSLocation()
+      getISSLocation();
     }, 3000);
     return () => clearInterval(timer);
   }, []);
 
-
   return (
-    <div className='app'>
-
-
+    <div className="app">
       <div>
         The current coordinates of the ISS are:
-          {Object.keys(ISSCoordinates).length ?
+        {Object.keys(ISSCoordinates).length ? (
           <div>
-            <h4>
-              Latitude: {ISSCoordinates.latitude}
-            </h4>
-            <h4>
-              Longitude: {ISSCoordinates.longitude}
-            </h4>
+            <h4>Latitude: {ISSCoordinates.latitude}</h4>
+            <h4>Longitude: {ISSCoordinates.longitude}</h4>
           </div>
-          : null
-        }
+        ) : null}
       </div>
 
       <div className='map'>
         <Map coordinates={ISSCoordinates} userCoordinates={userCoordinates}/>
       </div>
-
     </div>
   );
 }
