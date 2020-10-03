@@ -27,35 +27,6 @@ function App() {
   };
 
 
-  // const getPassTimes = async () => {
-  //   try {
-  //     const response = await axios.get('https://api.open-notify.org/iss-pass.json?lat=40.7128&lon=-74.006')
-  //     const passTimesInfo = response.data;
-
-  //     console.log('PassTimesInfo: ', passTimesInfo)
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // const getUserLocation = async () => {
-  //   try {
-  //     const response = await axios.get("https://geolocation-db.com/json/697de680-a737-11ea-9820-af05f4014d91")
-  //     const data = await response.json()
-  //     console.log('USER LOCATION: ', data);
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // getUserLocation();
-
-  // const getUserLocation = () => {
-  //     navigator.geolocation.getCurrentPosition(console.log, console.log)
-  //     console.log('USER LOCATION: ', position.coords);
-  // }
-
   //******************  PULL USER COORDINATES BASED ON GEOLOCATION API  *******************/
   const retrieveUserLocation = () => {
     const successCallback = (position) => {
@@ -75,13 +46,12 @@ function App() {
     })
   }
 
+
   //******************  PULL USER LOCATION BASED ON   *******************/
   const getUserDetailedInformation = async (longitude, latitude) => {
     try {
-      const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${userCoordinates.userLatitude},${userCoordinates.userLongitude}`)
-
+      const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${latitude},${longitude}`)
       const userDetailedInfo = response.data;
-
       console.log('PassTimesInfo: ', userDetailedInfo)
 
     } catch (error) {
@@ -89,20 +59,21 @@ function App() {
     }
   }
   retrieveUserLocation()
-  // getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
+ 
 
 
   useEffect(() => {
     const timer = setInterval(() => {
       getISSLocation();
       getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
-      // Can't get the above function to call correctly - it returns undefined coordinates; meanwhile, when I place the function outside, it pulls coordinates from state
-    }, 3000);
+    }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [userCoordinates.userLongitude, userCoordinates.userLatitude]);
+
 
   return (
     <div className="app">
+
       <div>
         The current coordinates of the ISS are:
         {Object.keys(ISSCoordinates).length ? (
@@ -116,6 +87,7 @@ function App() {
       <div className='map'>
         <Map coordinates={ISSCoordinates} userCoordinates={userCoordinates}/>
       </div>
+      
     </div>
   );
 }
