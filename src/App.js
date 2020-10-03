@@ -9,6 +9,7 @@ function App() {
   const [userCoordinates, setUserCoordinates] = useState({})
 
 
+  //******************    *******************//
   const getISSLocation = async () => {
     try {
       const response = await axios.get('https://api.wheretheiss.at/v1/satellites/25544')
@@ -27,7 +28,7 @@ function App() {
   };
 
 
-  //******************  PULL USER COORDINATES BASED ON GEOLOCATION API  *******************/
+  //******************  PULL USER COORDINATES BASED ON GEOLOCATION API  *******************//
   const retrieveUserLocation = () => {
     const successCallback = (position) => {
       const userCoordinates = {
@@ -47,7 +48,7 @@ function App() {
   }
 
 
-  //******************  PULL USER LOCATION BASED ON   *******************/
+  //******************  PULL USER LOCATION BASED ON   *******************//
   const getUserDetailedInformation = async (longitude, latitude) => {
     try {
       const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${latitude},${longitude}`)
@@ -60,7 +61,6 @@ function App() {
   }
   retrieveUserLocation()
  
-
 
   useEffect(() => {
     const timer = setInterval(() => {

@@ -4,7 +4,11 @@ import {
   Geographies,
   Geography,
   Marker,
-  Graticule
+  Graticule,
+  ZoomableGroup,
+  Line,
+  Annotation,
+  Sphere
 } from "react-simple-maps";
 
 const geoUrl =
@@ -21,30 +25,58 @@ const Map = props => {
 
   return (
     <div>
-      <ComposableMap projectionConfig={{ scale: 150 }}>
-        <Graticule stroke="#cfe3dd" />
-        <Geographies geography={geoUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => (
-              <Geography key={geo.rsmKey} geography={geo} />
-            ))
-          }
-        </Geographies>
+      <ComposableMap projectionConfig={{ scale: 140 }}>
+        <ZoomableGroup zoom={1}>
 
-        {/* Longitude, Latitude */}
-        {/* <Marker coordinates={[-74.006, 40.7128]}> */}
-        <Marker coordinates={[numericalLongitude, numericalLatitude]}>
-          <circle r={8} fill="#F53" />
-        </Marker>
-        <Marker coordinates={[userCoordinates.userLongitude, userCoordinates.userLatitude]}>
-          <circle r={8} fill="#1527cf" />
-        </Marker>
+          <Sphere stroke="#FF5533" strokeWidth={2} />
+          <Graticule stroke="#cfe3dd" />
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography key={geo.rsmKey} geography={geo} />
+              ))
+            }
+          </Geographies>
+
+
+
+
+          <Line
+            from={[2.3522, 48.8566]}
+            to={[-74.006, 40.7128]}
+            stroke="#FF5533"
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+
+
+          <Annotation
+            subject={[2.3522, 48.8566]}
+            dx={-90}
+            dy={-30}
+            connectorProps={{
+              stroke: "#FF5533",
+              strokeWidth: 3,
+              strokeLinecap: "round"
+            }}
+          >
+            <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="#F53">
+              {"Paris"}
+            </text>
+          </Annotation>
+
+          {/* Longitude, Latitude */}
+          {/* <Marker coordinates={[-74.006, 40.7128]}> */}
+          <Marker coordinates={[numericalLongitude, numericalLatitude]}>
+            <circle r={8} fill="#F53" />
+          </Marker>
+          <Marker coordinates={[userCoordinates.userLongitude, userCoordinates.userLatitude]}>
+            <circle r={8} fill="#1527cf" />
+          </Marker>
+        </ZoomableGroup>
       </ComposableMap>
     </div>
   );
 };
 
 export default Map;
-
-// Long: -95.712891
-// Lat: 37.09024
