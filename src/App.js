@@ -11,8 +11,6 @@ function App() {
 
   const getISSLocation = async () => {
     try {
-      // const responseOld = await axios.get('http://api.open-notify.org/iss-now.json')
-      // console.log('ISS coordinates OLD: ', responseOld.data.iss_position)
       const response = await axios.get('https://api.wheretheiss.at/v1/satellites/25544')
       const issInfo = {
         latitude: response.data.latitude,
@@ -21,9 +19,6 @@ function App() {
         altitude: response.data.altitude,
         velocity: response.data.velocity
       }
-
-      // console.log('ISS Coordinates: ', response.data)
-      // console.log('ISS Info object', issInfo)
 
       setCoordinates(issInfo);
     } catch (error) {
@@ -61,6 +56,7 @@ function App() {
   //     console.log('USER LOCATION: ', position.coords);
   // }
 
+  //******************  PULL USER COORDINATES BASED ON GEOLOCATION API  *******************/
   const retrieveUserLocation = () => {
     const successCallback = (position) => {
       const userCoordinates = {
@@ -79,12 +75,9 @@ function App() {
     })
   }
 
-
-
-
+  //******************  PULL USER LOCATION BASED ON   *******************/
   const getUserDetailedInformation = async (longitude, latitude) => {
     try {
-      // const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${latitude}`,`${longitude}`)
       const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${userCoordinates.userLatitude},${userCoordinates.userLongitude}`)
 
       const userDetailedInfo = response.data;
@@ -95,16 +88,15 @@ function App() {
       console.log(error)
     }
   }
-
   retrieveUserLocation()
   // getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
-  // console.log('USER LOCATION: ', userCoordinates)
 
 
   useEffect(() => {
     const timer = setInterval(() => {
       getISSLocation();
-      // getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
+      getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
+      // Can't get the above function to call correctly - it returns undefined coordinates; meanwhile, when I place the function outside, it pulls coordinates from state
     }, 3000);
     return () => clearInterval(timer);
   }, []);
