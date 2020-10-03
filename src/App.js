@@ -31,6 +31,19 @@ function App() {
     }
   };
 
+
+  // const getPassTimes = async () => {
+  //   try {
+  //     const response = await axios.get('https://api.open-notify.org/iss-pass.json?lat=40.7128&lon=-74.006')
+  //     const passTimesInfo = response.data;
+
+  //     console.log('PassTimesInfo: ', passTimesInfo)
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   // const getUserLocation = async () => {
   //   try {
   //     const response = await axios.get("https://geolocation-db.com/json/697de680-a737-11ea-9820-af05f4014d91")
@@ -54,7 +67,6 @@ function App() {
         userLatitude: position.coords.latitude,
         userLongitude: position.coords.longitude
       }
-
       setUserCoordinates(userCoordinates)
     }
 
@@ -67,15 +79,32 @@ function App() {
     })
   }
 
+
+
+
+  const getUserDetailedInformation = async (longitude, latitude) => {
+    try {
+      // const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${latitude}`,`${longitude}`)
+      const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${userCoordinates.userLatitude},${userCoordinates.userLongitude}`)
+
+      const userDetailedInfo = response.data;
+
+      console.log('PassTimesInfo: ', userDetailedInfo)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   retrieveUserLocation()
+  // getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
   // console.log('USER LOCATION: ', userCoordinates)
-
-
 
 
   useEffect(() => {
     const timer = setInterval(() => {
       getISSLocation();
+      // getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
     }, 3000);
     return () => clearInterval(timer);
   }, []);
