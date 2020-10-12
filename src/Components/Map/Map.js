@@ -40,7 +40,7 @@ const Map = props => {
           <Line
             // coordinates={[[-180, 0], [0, 0]]}
             coordinates={ISSMapLine.slice(2)}
-            stroke="#073307"
+            stroke="#023302"
             strokeWidth={2}
           />
 
