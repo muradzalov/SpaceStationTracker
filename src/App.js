@@ -32,7 +32,6 @@ function App() {
   //****************** ISS MAP LINE COORDINATES ARRAY *******************//
   const satellitePathing = (arr) => {
     mapLineCoordinates.push(arr)
-    // console.log('mapLineCoordinates: ', mapLineCoordinates.slice(2))
   }
 
 

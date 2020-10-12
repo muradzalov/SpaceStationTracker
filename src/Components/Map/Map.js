@@ -20,8 +20,6 @@ const Map = props => {
 
   const numericalLongitude = Number(coordinates.longitude);
   const numericalLatitude = Number(coordinates.latitude);
-  console.log('HULLO ', props.ISSMapLine)
-  // console.log('userCoordinates from props', userCoordinates)
 
   return (
     <div>
@@ -38,14 +36,6 @@ const Map = props => {
             }
           </Geographies>
 
-
-          {/* <Line
-            from={[2.3522, 48.8566]}
-            to={[-74.006, 40.7128]}
-            stroke="#FF5533"
-            strokeWidth={4}
-            strokeLinecap="round"
-          /> */}
 
           <Line
             // coordinates={[[-180, 0], [0, 0]]}
