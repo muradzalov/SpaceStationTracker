@@ -7,9 +7,10 @@ function App() {
 
   const [ISSCoordinates, setCoordinates] = useState({})
   const [userCoordinates, setUserCoordinates] = useState({})
+  const [mapLineCoordinates] = useState([])
 
 
-  //******************    *******************//
+  //****************** ISS COORDINATES *******************//
   const getISSLocation = async () => {
     try {
       const response = await axios.get('https://api.wheretheiss.at/v1/satellites/25544')
@@ -28,7 +29,15 @@ function App() {
   };
 
 
-  //******************  PULL USER COORDINATES BASED ON GEOLOCATION API  *******************//
+  //****************** ISS MAP LINE COORDINATES ARRAY *******************//
+  const satellitePathing = (arr) => {
+    mapLineCoordinates.push(arr)
+    // console.log('mapLineCoordinates: ', mapLineCoordinates.slice(2))
+  }
+
+
+
+  //****************** USER COORDINATES *******************//
   const retrieveUserLocation = () => {
     const successCallback = (position) => {
       const userCoordinates = {
@@ -48,12 +57,13 @@ function App() {
   }
 
 
-  //******************  PULL USER LOCATION BASED ON   *******************//
+
+  //****************** USER DETAILED LOCATION *******************//
   const getUserDetailedInformation = async (longitude, latitude) => {
     try {
       const response = await axios.get(`https://api.wheretheiss.at/v1/coordinates/${latitude},${longitude}`)
       const userDetailedInfo = response.data;
-      console.log('PassTimesInfo: ', userDetailedInfo)
+      // console.log('User Detailed Information: ', userDetailedInfo)
 
     } catch (error) {
       console.log(error)
@@ -62,13 +72,15 @@ function App() {
   retrieveUserLocation()
  
 
+
   useEffect(() => {
     const timer = setInterval(() => {
       getISSLocation();
+      satellitePathing([ISSCoordinates.longitude, ISSCoordinates.latitude]);
       getUserDetailedInformation(userCoordinates.userLongitude, userCoordinates.userLatitude)
     }, 4000);
     return () => clearInterval(timer);
-  }, [userCoordinates.userLongitude, userCoordinates.userLatitude]);
+  }, [userCoordinates.userLongitude, userCoordinates.userLatitude, ISSCoordinates]);
 
 
   return (
@@ -85,7 +97,7 @@ function App() {
       </div>
 
       <div className='map'>
-        <Map coordinates={ISSCoordinates} userCoordinates={userCoordinates}/>
+        <Map coordinates={ISSCoordinates} userCoordinates={userCoordinates} ISSMapLine={mapLineCoordinates}/>
       </div>
       
     </div>
