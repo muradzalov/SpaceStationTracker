@@ -40,34 +40,60 @@ const Map = props => {
           <Line
             // coordinates={[[-180, 0], [0, 0]]}
             coordinates={ISSMapLine.slice(2)}
-            stroke="#F53"
+            stroke="#073307"
             strokeWidth={2}
           />
 
+          {Object.keys(coordinates).length > 0 &&
+            <Annotation
+              subject={[numericalLongitude, numericalLatitude]}
+              dx={0}
+              dy={-30}
+              connectorProps={{
+                stroke: "#FF5533",
+                strokeWidth: 2,
+                strokeLinecap: "round"
+              }}
+            >
+              <text textAnchor="middle" alignmentBaseline="middle" fill="#F53">
+                {"International Space Station"}
+              </text>
+            </Annotation>
+          }
 
-          <Annotation
-            subject={[2.3522, 48.8566]}
-            dx={-90}
-            dy={-30}
-            connectorProps={{
-              stroke: "#FF5533",
-              strokeWidth: 3,
-              strokeLinecap: "round"
-            }}
-          >
-            <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="#F53">
-              {"Paris"}
-            </text>
-          </Annotation>
+          {Object.keys(userCoordinates).length > 0 &&
+            <Annotation
+              subject={[userCoordinates.userLongitude, userCoordinates.userLatitude]}
+              dx={0}
+              dy={-30}
+              connectorProps={{
+                stroke: "#080361",
+                strokeWidth: 2,
+                strokeLinecap: "round"
+              }}>
+              <text textAnchor="middle" alignmentBaseline="middle" fill="#3235f0">
+                {"User"}
+              </text>
+            </Annotation>
+          }
 
           {/* Longitude, Latitude */}
           {/* <Marker coordinates={[-74.006, 40.7128]}> */}
-          <Marker coordinates={[numericalLongitude, numericalLatitude]}>
-            <circle r={8} fill="#F53" />
-          </Marker>
-          <Marker coordinates={[userCoordinates.userLongitude, userCoordinates.userLatitude]}>
-            <circle r={8} fill="#1527cf" />
-          </Marker>
+
+
+
+          {Object.keys(coordinates).length > 0 &&
+            <Marker coordinates={[numericalLongitude, numericalLatitude]}>
+              <circle r={8} fill="#F53" />
+            </Marker>
+          }
+
+          {Object.keys(userCoordinates).length > 0 &&
+            <Marker coordinates={[userCoordinates.userLongitude, userCoordinates.userLatitude]}>
+              <circle r={8} fill="#1527cf" />
+            </Marker>
+          }
+
         </ZoomableGroup>
       </ComposableMap>
     </div>
